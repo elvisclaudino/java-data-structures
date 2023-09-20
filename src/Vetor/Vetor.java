@@ -30,6 +30,8 @@ public class Vetor {
 //    }
 
     public boolean adiciona(String elemento) {
+        this.aumentaCapacidade();
+
         if(this.tamanho < this.elements.length) {
             this.elements[this.tamanho] = elemento;
             this.tamanho++;
@@ -43,6 +45,8 @@ public class Vetor {
             throw new IllegalArgumentException("Posição inválida");
         }
 
+        this.aumentaCapacidade();
+
         // Mover todos os elementos
         for(int i=this.tamanho-1; i>=posicao; i--) {
             this.elements[i+1] = this.elements[i];
@@ -51,6 +55,16 @@ public class Vetor {
         this.tamanho++;
 
         return true;
+    }
+
+    private void aumentaCapacidade() {
+        if(this.tamanho == this.elements.length) {
+            String[] elementsNovos = new String[this.elements.length * 2];
+            for(int i=0; i<this.elements.length; i++) {
+                elementsNovos[i] = this.elements[i];
+            }
+            this.elements = elementsNovos;
+        }
     }
 
     public String busca(int posicao) {
@@ -67,6 +81,16 @@ public class Vetor {
             }
         }
         return -1;
+    }
+
+    public void remove(int posicao) {
+        if(!(posicao >= 0 && posicao < this.tamanho)) {
+            throw new IllegalArgumentException("Posição inválida");
+        }
+        for(int i=posicao; i<this.tamanho-1; i++) {
+            this.elements[i] = this.elements[i+1];
+        }
+        this.tamanho--;
     }
 
     public int tamanho() {
