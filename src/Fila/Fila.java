@@ -14,4 +14,12 @@ public class Fila<T> extends EstruturaEstatica<T> {
     public void enfileirar(T elemento) {
         super.adiciona(elemento);
     }
+
+    public T espiar() {
+        if(this.estaVazia()) {
+            return null;
+        }
+
+        return this.elementos[0];
+    }
 }
